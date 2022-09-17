@@ -17,11 +17,11 @@ Features
 Structure
 ---------
 
-* `bashrc` - Bash's global startup file, sourced by `~/.bashrc`. Contains
+* `bash.config.d/rc.bash` - Bash's global startup file, sourced by `~/.bashrc`. Contains
   stuffs that we think is good for all users.
   * Sources `profile` for environmental variables
   * Sets some variables for colors
-  * Sources `bashrc.d`
+  * Sources `bash.config.d/bashrc`
   * Sets up the PS1
   * Sets up aliases
   * Sets up some bash-specific variables.
@@ -35,15 +35,15 @@ Structure
     * If those are still empty, default values `{,/usr{,/local}}/{s,}bin` and
 	  `/usr/{,local/}man` are used.
   * Sets up `$TZ` and some common history variables.
-  * Sources `profile.d`.
-* `skel` - `$HOME` Skeleton. Contains what we think is good for most users.
-  * `.bashrc` - User bash startup, sources `/etc/bashrc`.
+  * Sources `bash.config.d/profile`.
+* `bash.config.d/skel` - `$HOME` Skeleton. Contains what we think is good for most users.
+  * `.bashrc` - User bash startup, sources `/etc/bash.config.d/rc.bash`.
   * `.bash_profile` - User bash login, sources `~/.bashrc`.
   * `.bash_logout` - User bash logout.
-* `bashrc.d` - Files sourced by `/etc/bashrc`.
+* `bash.config.d/bashrc` - Files sourced by `bash.config.d/rc.bash`.
   * `20-vcs` - VCS aliases and PS1. Provides `_vcs_status`.
     * `.vcs_*` - VCS Implementations.
-* `profile.d` - Files sourced by `/etc/profile`.
+* `bash.config.d/profile` - Files sourced by `/etc/profile`.
 
 Dependencies
 ------------
@@ -135,7 +135,7 @@ some people like @Icenowy keeps annoying me with those.
 
 Because including that feature was a mistake, and we fixed it. You will need
 to replace corresponding file(s) with those in `/etc/skel`, so just run
-`cat /etc/skel/.bash_logout > ~/.bash_logout`.
+`cat /etc/bash.config.d/skel/.bash_logout > ~/.bash_logout`.
 
 If you have made extra changes to that file, merge them by yourself.
 
