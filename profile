@@ -10,12 +10,21 @@
 # ~/.bash_profile.  Personal aliases and functions should go into
 # ~/.bashrc.
 
+# Unset identifers in list, identifiers will be unset when this script exit
+__UNSET=(pth script unsetthen)
+unsetthen() {
+	__UNSET=($__UNSET $@)
+}
+
+# Here we set the profile script home
+# Will be unset after script run
+BASHCONFIG_PROFILE_ROOT="/etc/bash.config.d/profile"
+unsetthen BASHCONFIG_PROFILE_ROOT
+
 # Set up PATH and MANPATH
 unset PATH MANPATH
-_IFS=' 	
-' # $' \t\n'
-IFS='
-' # $'\n'
+_IFS=$' \t\n'
+IFS=$'\n'
 for pth in $(cat /etc/paths.d/._* /etc/paths /etc/paths.d/*); do
 	case "$pth" in \#*) continue;; esac
 	PATH="$PATH:$pth"
@@ -38,7 +47,7 @@ export HISTFILESIZE=4096
 export TZ="$(readlink /etc/localtime | sed -e 's/^\.\.//g' -e 's@/usr/share/zoneinfo/@@')"
 
 # Source profile scripts
-for script in /etc/profile.d/* ; do
+for script in $BASHCONFIG_PROFILE_ROOT/* ; do
 	case "$script" in
 		*.bash)
 			[ "$BASH" ] && . "$script" ;;
@@ -48,5 +57,5 @@ for script in /etc/profile.d/* ; do
 done
 
 # Now to clean up
-unset pth script
+unset ${@__UNSET[*]}
 # End /etc/profile

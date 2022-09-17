@@ -18,9 +18,9 @@ alias ha='hg add .'
 _ps1_hg_status() {
 	hg branch &>/dev/null || return 1
 	if LC_ALL=C hg status | grep -q ' '; then
-		echo -ne "@\01\e[1m\]\01\e[0;32m\]$(hg branch)\01\e[0m\]"
+		echo -ne "@\01$LIGHT\]\01$IGREEN\]$(hg branch)\01$NORMAL\]"
 	else
-		echo -ne "@\01\e[1m\]\01$IRED\]$(hg branch)\01\e[0m\]"
+		echo -ne "@\01$LIGHT\]\01$IRED\]$(hg branch)\01$NORMAL\]"
 	fi
 }
 

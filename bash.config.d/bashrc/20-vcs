@@ -8,8 +8,8 @@
 _is_posix && return
 
 # Get functions
-_vcs_files="$(echo /etc/bashrc.d/.vcs_*)"
-if [ "$_vcs_files" == "/etc/bashrc.d/.vcs_*" ]; then
+_vcs_files="$(echo $BASHCONFIG_BASHRC_HOME/.vcs_*)"
+if [ "$_vcs_files" == "$BASHCONFIG_BASHRC_HOME/.vcs_*" ]; then
 	_vcs_status(){ true; }
 	unset _vcs_files
 	return

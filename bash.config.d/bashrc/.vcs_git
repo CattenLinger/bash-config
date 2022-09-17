@@ -38,13 +38,13 @@ _ps1_git_status() {
 	local gst
 	gst=$(LC_ALL=C git status 2>&1)
 	if printf %s "$gst" | grep -q "nothing to commit"; then
-		 echo -e "\01\e[1m\02@\01\e[0;32m\0002$gbr\01\e[0m\02"
+		 echo -e "\01$LIGHT\02@\01$IGREE\0002$gbr\01$NORMAL\02"
 	elif printf %s "$gst" | grep -q "nothing added to commit"; then # Untracked
-		 echo -e "\01\e[1m\02@\01\e[0;35m\0002$gbr\01\e[0m\02"
+		 echo -e "\01$LIGHT\02@\01$PURPLE\0002$gbr\01$NORMAL\02"
 	elif printf %s "$gst" | grep -q "must be run in a work tree"; then # Not in work tree
-		 echo -e "\01\e[1m\02@\01\e[0;37m\0002$gbr\01\e[0m\02"
+		 echo -e "\01$LIGHT\02@\01$WHITE\0002$gbr\01$NORMAL\02"
 	else  # Change not added/not merged yet
-		 echo -e "\01\e[1m\02@\01$IRED\0002$gbr\01\e[0m\02"
+		 echo -e "\01$LIGHT\02@\01$IRED\0002$gbr\01$NORMAL\02"
 	fi
 }
 

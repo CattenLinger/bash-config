@@ -5,6 +5,13 @@
 
 # Then improved and changed to fit AOSC OSes
 # By Jeff Bai and Arthur Wang
+# More impovment by Catten Linger
+
+# Unset list, identifiers will be unset when this script exit
+__UNSET=(script shopt unsetthen)
+unsetthen() {
+	__UNSET=($__UNSET $@)
+}
 
 # System wide aliases and functions.
 [ "$BASH" ] || shopt(){ return ${shopt_def-0}; }
@@ -62,6 +69,7 @@ NORMAL='\e[0m'
 BOLD='\e[1;37m'
 RED='\e[1;31m'
 GREEN='\e[1;32m'
+IGREE='\e[0;32m'
 CYAN='\e[1;36m'
 YELLOW='\e[1;93m'
 IRED='\e[0;91m'
@@ -82,7 +90,7 @@ _ret_prompt() {
     0|130)	# Input C-c, we have to override the \$
       ((EUID)) && echo -n '$' || echo -n '#';;
     127)	# Command not found
-      echo -ne '\01\e[1;36m\02?'
+      echo -ne '\01'$CYAN'\02?'
       ;;
     *)		# Other errors
       echo -ne '\01'$YELLOW'\02!'
@@ -91,6 +99,15 @@ _ret_prompt() {
 }
 
 _ret_same() { return $?; }
+
+################################################################
+# Load bashrc
+################################################################
+
+# Here we set the bashrc script home
+# Will be unset after script finished.
+BASHCONFIG_BASHRC_HOME="/etc/bash.config.d/bashrc"
+unsetthen BASHCONFIG_BASHRC_HOME
 
 # Base functions ready. Let's load bashrc.d.
 for script in /etc/bashrc.d/*; do . "$script"; done
@@ -125,5 +142,6 @@ _is_posix || which --version 2>/dev/null | grep -q GNU && alias which='(alias; d
 FIGNORE='~'
 TIMEFORMAT=$'\nreal\t%3lR\t%P%%\nuser\t%3lU\nsys\t%3lS'
 
-unset script shopt
+# Now to clean up
+unset ${@__UNSET[*]}
 # End /etc/bashrc
