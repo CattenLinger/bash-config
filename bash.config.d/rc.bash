@@ -66,6 +66,7 @@ alias cp='cp --reflink=auto --sparse=always'
 # Those are actually bold colors.
 _aosc_bashrc_colors='NORMAL BOLD RED GREEN CYAN IRED YELLOW'
 NORMAL='\e[0m'
+LIGHT='\e[1m'
 BOLD='\e[1;37m'
 RED='\e[1;31m'
 GREEN='\e[1;32m'
@@ -73,6 +74,8 @@ IGREE='\e[0;32m'
 CYAN='\e[1;36m'
 YELLOW='\e[1;93m'
 IRED='\e[0;91m'
+PURPLE='\e[0;35m'
+WHITE='\e[0;37m'
 
 if _rc_term_colors="$(tput colors)"; then
 	[ "$_rc_term_colors" -le 16 ]
